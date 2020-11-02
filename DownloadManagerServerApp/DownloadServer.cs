@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UserCommonApp;
 using System.ServiceModel;
 using System.Net;
+using System.Diagnostics;
 
 namespace DownloadManagerServerApp
 {
@@ -20,24 +21,38 @@ namespace DownloadManagerServerApp
             catch (Exception msg)
             {
             }
-            using (WebClient wc = new WebClient())
+            string url = updatedMSILink.latestVersionLink.ToString();
+            string fileName = "OStore.msi";
+            string fileStoringLocation = @"E:\Ziroh\OStore\";
+            string filePath = fileStoringLocation + fileName;
+            try
             {
-                wc.DownloadFileAsync(
-                    // Param1 = Link of file
-                    new System.Uri(updatedMSILink.latestVersionLink.ToString()),
-                    // Param2 = Path to save
-                    "Path Where File Will Be Saved"
-                );
+                using (WebClient wc = new WebClient())
+                {
+                    wc.DownloadFileAsync(
+                        new Uri(url),
+                        filePath
+                    );
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
             CloseDesktopApplication();
             CloseSecureConnection();
-            StartMSI();
-
+            StartMSI(filePath);
+            Environment.Exit(1);
         }
 
         private void CloseDesktopApplication()
         {
-            throw new NotImplementedException();
+            Process[] processNames = Process.GetProcessesByName("chrome");
+
+            foreach (Process item in processNames)
+            {
+                item.Kill();
+            }
         }
 
         private void CloseSecureConnection()
@@ -45,9 +60,15 @@ namespace DownloadManagerServerApp
             throw new NotImplementedException();
         }
 
-        private Task StartMSI()
+        private void StartMSI(string filePath)
         {
-            throw new NotImplementedException();
+            Process installerProcess = new Process();
+            ProcessStartInfo processInfo = new ProcessStartInfo();
+            processInfo.Arguments = filePath +"  /q";
+            processInfo.FileName = "msiexec";
+            installerProcess.StartInfo = processInfo;
+            installerProcess.Start();
+            installerProcess.WaitForExit();
         }
     }
 }
