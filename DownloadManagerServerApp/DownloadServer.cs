@@ -9,30 +9,30 @@ namespace DownloadManagerServerApp
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     class DownloadServer : IDownloadManager
     {
-        //DownloadClient downloadclient = new DownloadClient();
+        DownloadClient downloadclient = new DownloadClient();
         public async Task DownloadBinaries(string VersionNumber)
         {
-            string updatedMSILink = null;
-            /*Result validateVersion = null;
+            Result updatedMSILink = null;
             try
             {
-                validateVersion = await downloadclient.downloadMSILink(VersionNumber);
+                updatedMSILink = await downloadclient.downloadMSILink(VersionNumber);
             }
             catch (Exception msg)
             {
-            }*/
+            }
             using (WebClient wc = new WebClient())
             {
                 wc.DownloadFileAsync(
                     // Param1 = Link of file
-                    new System.Uri(updatedMSILink),
+                    new System.Uri(updatedMSILink.latestVersionLink.ToString()),
                     // Param2 = Path to save
                     "Path Where File Will Be Saved"
                 );
             }
             CloseDesktopApplication();
             CloseSecureConnection();
-            await StartMSI();
+            StartMSI();
+
         }
 
         private void CloseDesktopApplication()
