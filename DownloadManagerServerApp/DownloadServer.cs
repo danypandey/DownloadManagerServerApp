@@ -4,6 +4,7 @@ using UserCommonApp;
 using System.ServiceModel;
 using System.Net;
 using System.Diagnostics;
+using System.IO;
 
 namespace DownloadManagerServerApp
 {
@@ -13,16 +14,17 @@ namespace DownloadManagerServerApp
         DownloadClient downloadclient = new DownloadClient();
         public async Task DownloadBinaries(string VersionNumber)
         {
-            Result updatedMSILink = null;
+            byte[] updatedMSI = null;
+
             try
             {
-                updatedMSILink = await downloadclient.downloadMSILink(VersionNumber);
+                updatedMSI = await downloadclient.downloadMSI(VersionNumber);
             }
             catch (Exception msg)
             {
             }
-            string url = updatedMSILink.latestVersionLink.ToString();
-            string fileName = System.IO.Path.GetFileName(url);
+
+            /*string fileName = System.IO.Path.GetFileName(url);
             string fileStoringLocation = @"E:\Ziroh\OStore\";
             string filePath = fileStoringLocation + fileName;
             if (!String.IsNullOrEmpty(url))
@@ -53,16 +55,21 @@ namespace DownloadManagerServerApp
                 {
                     Console.WriteLine(e);
                 }
-            }
+            }*/
+
+            string filePath = @"E:\Ziroh\OStore\setup.msi";
+            string msiFilePath = @"/i E:\Ziroh\OStore\setup.msi";
+            File.WriteAllBytes(filePath, updatedMSI);
+
             CloseDesktopApplication();
             CloseSecureConnection();
-            StartMSI(filePath);
+            StartMSI(msiFilePath);
             Environment.Exit(1);
         }
 
         private void CloseDesktopApplication()
         {
-            Process[] processNames = Process.GetProcessesByName("ostore");
+            Process[] processNames = Process.GetProcessesByName("mspaint");
 
             try
             {
@@ -74,24 +81,41 @@ namespace DownloadManagerServerApp
             }
             catch (Exception msg)
             {
-
             }
         }
 
         private void CloseSecureConnection()
         {
-            throw new NotImplementedException();
+            Process[] processNames = Process.GetProcessesByName("notepad");
+
+            try
+            {
+                foreach (Process item in processNames)
+                {
+                    item.Kill();
+                    item.WaitForExit();
+                }
+            }
+            catch (Exception msg)
+            {
+            }
         }
 
-        private void StartMSI(string filePath)
+        private void StartMSI(string msiPath)
         {
             Process installerProcess = new Process();
             ProcessStartInfo processInfo = new ProcessStartInfo();
-            processInfo.Arguments = filePath + "  /q";
+            processInfo.Arguments = msiPath;
             processInfo.FileName = "msiexec";
             installerProcess.StartInfo = processInfo;
             installerProcess.Start();
-            installerProcess.WaitForExit();
+            Environment.Exit(1);
+
+            /*Process installerProcess = new Process();
+            installerProcess.StartInfo.FileName = Path.GetFileName(filePath);
+            installerProcess.StartInfo.Verb = "runas";
+            installerProcess.StartInfo.WorkingDirectory = filePath;
+            installerProcess.Start();*/
         }
     }
 }

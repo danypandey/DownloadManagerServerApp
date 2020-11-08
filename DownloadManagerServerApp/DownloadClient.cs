@@ -15,20 +15,20 @@ namespace DownloadManagerServerApp
             client = new GenericRestClient(baseUri);
         }
 
-        public async Task<UserCommonApp.Result> downloadMSILink(string latestAppVersion)
+        public async Task<byte[]> downloadMSI(string latestAppVersion)
         {
-            UserCommonApp.Result clientUpdateResult = await DownloadMSILink(latestAppVersion);
-            Console.WriteLine(clientUpdateResult.latestVersionLink);
+            byte[] clientUpdateResult = await DownloadMSI(latestAppVersion);
+            //Console.WriteLine(clientUpdateResult.latestVersionLink);
             return clientUpdateResult;
         }
 
-        private async Task<UserCommonApp.Result> DownloadMSILink(string LatestAppVersion)
+        private async Task<byte[]> DownloadMSI(string LatestAppVersion)
         {
             string relativeUrl = string.Format("/updateservice/download/{0}", LatestAppVersion);
-            UserCommonApp.Result updatedMSILink = null;
-            Action<UserCommonApp.Result> onSuccess = new Action<UserCommonApp.Result>((validateResult =>
+            byte[] updatedMSI = null;
+            Action<byte[]> onSuccess = new Action<byte[]>((validateResult =>
             {
-                updatedMSILink = validateResult;
+                updatedMSI = validateResult;
             }));
             Action<HttpFailure> onFailure = new Action<HttpFailure>((failure) =>
             {
@@ -36,7 +36,7 @@ namespace DownloadManagerServerApp
             });
             await client.GetAsync(onSuccess, onFailure, relativeUrl);
 
-            return updatedMSILink;
+            return updatedMSI;
         }
     }
 }
