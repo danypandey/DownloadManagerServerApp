@@ -5,16 +5,16 @@ using System.IO;
 
 namespace DownloadManagerServerApp
 {
-    class DownloadServer : IDownloadManager
+    class DownloadManagerServer : IDownloadManager
     {
-        DownloadClient downloadclient = new DownloadClient();
+        DownloadMangerClient downloadmanagerclient = new DownloadMangerClient();
         public async Task DownloadBinaries(string VersionNumber)
         {
             byte[] updatedMSI = null;
 
             try
             {
-                updatedMSI = await downloadclient.GetMSI(VersionNumber);
+                updatedMSI = await downloadmanagerclient.GetMSI(VersionNumber);
             }
             catch (Exception msg)
             {

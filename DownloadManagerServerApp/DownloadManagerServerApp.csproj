@@ -79,8 +79,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DownloadClient.cs" />
-    <Compile Include="DownloadServer.cs" />
+    <Compile Include="DownloadMangerClient.cs" />
+    <Compile Include="DownloadManagerServer.cs" />
     <Compile Include="IDownloadManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

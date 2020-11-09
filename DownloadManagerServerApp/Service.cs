@@ -7,7 +7,7 @@ namespace DownloadManagerServerApp
     {
         internal void Start(Uri baseAddress)
         {
-            GenericHttpService<DownloadServer, IDownloadManager> service = new GenericHttpService<DownloadServer, IDownloadManager>(baseAddress.ToString(), false);
+            GenericHttpService<DownloadManagerServer, IDownloadManager> service = new GenericHttpService<DownloadManagerServer, IDownloadManager>(baseAddress.ToString(), false);
             try
             {
                 service.StartHost();

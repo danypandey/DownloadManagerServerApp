@@ -4,11 +4,11 @@ using Ziroh.Misc.Common;
 
 namespace DownloadManagerServerApp
 {
-    class DownloadClient
+    class DownloadMangerClient
     {
         string baseUri = default(string);
         GenericRestClient client;
-        public DownloadClient()
+        public DownloadMangerClient()
         {
             baseUri = "http://127.0.0.1:8080";
             client = new GenericRestClient(baseUri);
