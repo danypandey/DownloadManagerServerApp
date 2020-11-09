@@ -15,7 +15,7 @@ namespace DownloadManagerServerApp
         }
 
 
-        internal async Task<byte[]> downloadMSI(string LatestAppVersion)
+        internal async Task<byte[]> GetMSI(string LatestAppVersion)
         {
             string relativeUrl = string.Format("/updateservice/download/{0}", LatestAppVersion);
             byte[] updatedMSI = null;

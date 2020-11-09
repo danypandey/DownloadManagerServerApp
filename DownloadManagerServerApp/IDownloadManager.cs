@@ -1,7 +1,6 @@
 ﻿using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Threading.Tasks;
-using UserCommonApp;
 
 namespace DownloadManagerServerApp
 {

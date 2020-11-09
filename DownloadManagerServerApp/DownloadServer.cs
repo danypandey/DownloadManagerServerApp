@@ -14,7 +14,7 @@ namespace DownloadManagerServerApp
 
             try
             {
-                updatedMSI = await downloadclient.downloadMSI(VersionNumber);
+                updatedMSI = await downloadclient.GetMSI(VersionNumber);
             }
             catch (Exception msg)
             {
@@ -27,7 +27,7 @@ namespace DownloadManagerServerApp
             CloseDesktopApplication();
             CloseSecureConnection();
             StartMSI(msiFilePath);
-            Environment.Exit(1);
+            Environment.Exit(0);
         }
 
         private void CloseDesktopApplication()
