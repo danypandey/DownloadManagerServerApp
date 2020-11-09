@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UserCommonApp;
 using Ziroh.Misc.Common;
 
 namespace DownloadManagerServerApp
@@ -15,14 +14,13 @@ namespace DownloadManagerServerApp
             client = new GenericRestClient(baseUri);
         }
 
-        public async Task<byte[]> downloadMSI(string latestAppVersion)
+        /*public async Task<byte[]> downloadMSI(string latestAppVersion)
         {
             byte[] clientUpdateResult = await DownloadMSI(latestAppVersion);
-            //Console.WriteLine(clientUpdateResult.latestVersionLink);
             return clientUpdateResult;
-        }
+        }*/
 
-        private async Task<byte[]> DownloadMSI(string LatestAppVersion)
+        internal async Task<byte[]> downloadMSI(string LatestAppVersion)
         {
             string relativeUrl = string.Format("/updateservice/download/{0}", LatestAppVersion);
             byte[] updatedMSI = null;
