@@ -14,11 +14,6 @@ namespace DownloadManagerServerApp
             client = new GenericRestClient(baseUri);
         }
 
-        /*public async Task<byte[]> downloadMSI(string latestAppVersion)
-        {
-            byte[] clientUpdateResult = await DownloadMSI(latestAppVersion);
-            return clientUpdateResult;
-        }*/
 
         internal async Task<byte[]> downloadMSI(string LatestAppVersion)
         {
