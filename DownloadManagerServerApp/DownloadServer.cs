@@ -32,7 +32,7 @@ namespace DownloadManagerServerApp
 
         private void CloseDesktopApplication()
         {
-            Process[] processNames = Process.GetProcessesByName("mspaint");
+            Process[] processNames = Process.GetProcessesByName("notepad");
 
             try
             {
@@ -49,7 +49,7 @@ namespace DownloadManagerServerApp
 
         private void CloseSecureConnection()
         {
-            Process[] processNames = Process.GetProcessesByName("notepad");
+            Process[] processNames = Process.GetProcessesByName("Ziroh.Local.DeviceLibrary");
 
             try
             {
