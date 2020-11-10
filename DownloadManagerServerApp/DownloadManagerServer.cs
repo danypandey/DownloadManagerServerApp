@@ -2,19 +2,21 @@
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using Newtonsoft.Json;
+using UserCommonApp;
 
 namespace DownloadManagerServerApp
 {
     class DownloadManagerServer : IDownloadManager
     {
         DownloadMangerClient downloadmanagerclient = new DownloadMangerClient();
-        public async Task DownloadBinaries(string VersionNumber)
+        public async Task DownloadBinaries(string clientConfiguration)
         {
             byte[] updatedMSI = null;
 
             try
             {
-                updatedMSI = await downloadmanagerclient.GetMSI(VersionNumber);
+                updatedMSI = await downloadmanagerclient.GetMSI(clientConfiguration);
             }
             catch (Exception msg)
             {
