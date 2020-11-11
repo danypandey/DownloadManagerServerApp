@@ -11,7 +11,7 @@ namespace DownloadManagerServerApp
          * Get 
          */
         [OperationContract]
-        [WebGet(UriTemplate = "/updateservice/download/{clientConfiguration}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
-        Task DownloadBinaries(string clientConfiguration);
+        [WebGet(UriTemplate = "/updateservice/download/{UpgradeReferenceId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        Task DownloadBinaries(string UpgradeReferenceId);
     }
 }

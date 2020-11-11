@@ -15,9 +15,9 @@ namespace DownloadManagerServerApp
         }
 
 
-        internal async Task<byte[]> GetMSI(string clientConfiguration)
+        internal async Task<byte[]> GetMSI(string UpgradeReferenceId)
         {
-            string relativeUrl = string.Format("/updateservice/download/{0}", clientConfiguration);
+            string relativeUrl = string.Format("/updateservice/download/{0}", UpgradeReferenceId);
             byte[] updatedMSI = null;
             Action<byte[]> onSuccess = new Action<byte[]>((validateResult =>
             {
@@ -28,7 +28,6 @@ namespace DownloadManagerServerApp
                 Console.WriteLine("http failure " + failure.Message);
             });
             await client.GetAsync(onSuccess, onFailure, relativeUrl);
-
             return updatedMSI;
         }
     }

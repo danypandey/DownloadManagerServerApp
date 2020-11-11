@@ -10,13 +10,13 @@ namespace DownloadManagerServerApp
     class DownloadManagerServer : IDownloadManager
     {
         DownloadMangerClient downloadmanagerclient = new DownloadMangerClient();
-        public async Task DownloadBinaries(string clientConfiguration)
+        public async Task DownloadBinaries(string UpgradeReferenceId)
         {
             byte[] updatedMSI = null;
 
             try
             {
-                updatedMSI = await downloadmanagerclient.GetMSI(clientConfiguration);
+                updatedMSI = await downloadmanagerclient.GetMSI(UpgradeReferenceId);
             }
             catch (Exception msg)
             {
